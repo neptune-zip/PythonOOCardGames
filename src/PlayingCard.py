@@ -19,16 +19,17 @@ class PlayingCard:
     # Function: shuffle_deck
     # Description: A set of cards is supplied and shuffled, randomly ordered.
     def shuffle_cards(self,cards):
-        random.shuffle(cards)
-        return cards
+        shuffeled_cards = cards.copy()
+        random.shuffle(shuffeled_cards)
+        return shuffeled_cards
 
     # Method: trentine_small
     # Description: An Italian set of cards Tertine can be only 40 cards or 52. The small set has no "8", "9" or "10". It
     # still has ace to seven and jack, queen and king.
     def trentine_small(self):
-        faces.remove("8")
-        faces.remove("9")
-        faces.remove("10")
+        self.faces.remove("8")
+        self.faces.remove("9")
+        self.faces.remove("10")
 
     # Function: deal_a_card
     # Description: Remove a card from a deck or hand of cards and return the card.
@@ -74,7 +75,7 @@ class PlayingCard:
     def is_playing_a_card(self, hand, card_to_play):
         played = False
         current_size = len(hand)
-        play_a_card(hand, card_to_play)
+        self.play_a_card(hand, card_to_play)
         if current_size > len(hand):
             played = True
         return played
@@ -138,12 +139,12 @@ class PlayingCard:
     # Description: For a hand of playing cards it is sorted. It is converted to hexadecimal numbers, sorted and converted
     # back to face cards
     def sort_hand(self, hand):
-        convert_faces_to_numbers(hand)
+        self.convert_faces_to_numbers(hand)
         hand.sort()
-        convert_numbers_to_faces(hand)
+        self.convert_numbers_to_faces(hand)
 
     # Method: sort_hands
     # Description: For a set of hands of cards for a number of players, each hand is sorted
     def sort_hands(self, hands):
         for hand in hands:
-            sort_hand(hand)
+            self.sort_hand(hand)
