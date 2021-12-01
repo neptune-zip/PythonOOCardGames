@@ -1,6 +1,7 @@
 import random
-from PlayingCard import PlayingCard
-from ConsoleInput import ConsoleInput
+from src.PlayingCard import PlayingCard
+from src.ConsoleInput import ConsoleInput
+from src.ConsoleOutput import ConsoleOutput
 
 class BlackJack:
 
@@ -11,6 +12,7 @@ class BlackJack:
     min_ace_score = 1
     good_number_of_cards = 5
     gameInput = ConsoleInput()
+    output = ConsoleOutput()
 
     playing_card = PlayingCard()
 
@@ -61,12 +63,14 @@ class BlackJack:
      and are bust. In this case we move on."""
         answer = "D"
         while answer == "D":
-            print("Your hand is", hand)
+            self.output.display("Your hand is")
+            self.output.display(hand)
             answer = self.valid_deal_input()
             if answer == "D":
                 if not self.deal_to_player(deck, hand):
                     answer = "F"
-                    print("Sorry you have gone over the score and are bust", hand)
+                    self.output.display("Sorry you have gone over the score and are bust")
+                    self.output.display(hand)
 
 
     def find_winner(self, hands):
@@ -119,11 +123,11 @@ class BlackJack:
         self.deal_to_computer(deck, hands, computer_risk)
         players = self.find_winner(hands)
         if len(players) == 1:
-            print("Player " + str(players[0]) + " is the winner")
+            self.output.display("Player " + str(players[0]) + " is the winner")
         else:
             for player in players:
-                print("Player " + str(player) + " draw")
-        print(hands)
+                self.output.display("Player " + str(player) + " draw")
+        self.output.display(hands)
 
     def main(self):
         """"Get the number of players, generate the deck of cards and work out the computer players risk."""
