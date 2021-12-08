@@ -52,9 +52,9 @@ class BlackJack:
      returns the answer in upper case. A while loop is used to prompt the user till the enter a valid response"""
         """Function to get a valid user input for the deal_to_user function"""
         allowed_answers = ["D", "S"]
-        answer = self.gameInput.getString("Please select (D)raw or (S)tick: ")
+        answer = self.gameInput.input_string("Please select (D)raw or (S)tick: ")
         while answer.upper() not in allowed_answers:
-            answer = self.gameInput.getString("That is not a valid input. Please select (D)raw or (S)tick: ")
+            answer = self.gameInput.input_string("That is not a valid input. Please select (D)raw or (S)tick: ")
         return answer.upper()
 
     def deal_to_user(self, deck, hand):
@@ -131,7 +131,7 @@ class BlackJack:
 
     def main(self):
         """"Get the number of players, generate the deck of cards and work out the computer players risk."""
-        number_of_players = int(self.gameInput.getString("Please enter the number of players, max is six"))
+        number_of_players = self.gameInput.input_int("Please enter the number of players, max is six")
         deck = self.playing_card.generate_deck()
         deck = self.playing_card.shuffle_cards(deck)
         hands = self.playing_card.deal_cards(deck, 2, number_of_players)
