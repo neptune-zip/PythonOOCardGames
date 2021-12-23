@@ -1,8 +1,12 @@
 from PlayingCard import PlayingCard
+from src.ConsoleInput import ConsoleInput
+from src.ConsoleOutput import ConsoleOutput
 import time
 
-class Snap:
 
+class Snap:
+    ci = ConsoleInput()
+    co = ConsoleOutput()
     playing_card = PlayingCard()
     user_hand = 0
     computer_hand = 1
@@ -30,7 +34,7 @@ class Snap:
             # user
             next_card = self.playing_card.deal_a_card(hands[self.user_hand])
             prompt = "You played "
-        print(prompt + next_card)
+        self.co.display(prompt + next_card)
         return next_card
 
     # Method: determine_winner
@@ -38,20 +42,20 @@ class Snap:
     # it in a given time set by the user.
     def determine_winner(self, current_score, previous_card, next_card, answer, waited, seconds_to_wait):
         if answer == "S" and self.is_snap(previous_card, next_card) and waited < seconds_to_wait:
-            print("Correct you win in " + str(waited))
+            self.co.display("Correct you win in " + str(waited))
             current_score[self.user_hand]["score"] += 1
-            print("You have won " + str(current_score[self.user_hand]["score"]) + " hands")
+            self.co.display("You have won " + str(current_score[self.user_hand]["score"]) + " hands")
         elif answer == "S" and self.is_snap(previous_card, next_card) and waited > seconds_to_wait:
-            print("Sorry to slow you waited " + str(waited))
-            print("Computer wins")
+            self.co.display("Sorry to slow you waited " + str(waited))
+            self.co.display("Computer wins")
             current_score[self.computer_hand]["score"] += 1
-            print("Computer has won " + str(current_score[self.computer_hand]["score"]) + " hands")
+            self.co.display("Computer has won " + str(current_score[self.computer_hand]["score"]) + " hands")
         elif answer == "S" and not self.is_snap(previous_card, next_card):
-            print("Wrong the cards are different")
+            self.co.display("Wrong the cards are different")
         elif answer == "N" and self.is_snap(previous_card, next_card):
-            print("Computer wins")
+            self.co.display("Computer wins")
             current_score[computer_hand]["score"] += 1
-            print("Computer has won " + str(current_score[self.computer_hand]["score"]) + " hands")
+            self.co.display("Computer has won " + str(current_score[self.computer_hand]["score"]) + " hands")
 
     # Method: main
     # Description: The main logic for snap given a hands of cards and a wait time.
@@ -64,7 +68,7 @@ class Snap:
             previous_card = next_card
             next_card = self.play_card(current_score, hands, counter)
             start = time.time()
-            answer = input("Please enter (S)nap or (N)ext")
+            answer = self.ci.input_string("Please enter (S)nap or (N)ext")
             waited = time.time() - start
             self.determine_winner(current_score, previous_card, next_card, answer.upper(), waited, seconds_to_wait)
             counter += 1
@@ -72,8 +76,8 @@ class Snap:
     def main(self):
         deck = self.playing_card.generate_deck()
         deck = self.playing_card.shuffle_cards(deck)
-        print("We will play snap to match on suites")
-        seconds_to_wait = int(input("Please enter the number of seconds to wait"))
+        self.co.display("We will play snap to match on suites")
+        seconds_to_wait = self.ci.input_int("Please enter the number of seconds to wait")
         # The next function returns two hands of cards. It has a full deck of cards as an input. The number of cards to deal
         # is zero so all cards are dealt to the two players. The last parameter is an empty list since the players have not
         # already been dealt any cards.
