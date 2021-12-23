@@ -1,4 +1,4 @@
-from InputInterface import InputInterface
+from src.InputInterface import InputInterface
 
 
 class ConsoleInput(InputInterface):
