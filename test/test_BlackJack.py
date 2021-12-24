@@ -1,10 +1,12 @@
 # Unit test all sub-programs with return statements.
 import unittest
 from src.BlackJack import BlackJack
+from test.TestInput import TestInput
 
 
 class BlackJackTest(unittest.TestCase):
     bjack = BlackJack()
+    bjack.gameInput = TestInput()
 
     def test_score_hand(self):
         self.assertEqual(14, self.bjack.score_hand(['H7', 'S7']))
