@@ -3,6 +3,7 @@ from src.PlayingCard import PlayingCard
 from src.ConsoleInput import ConsoleInput
 from src.ConsoleOutput import ConsoleOutput
 
+
 class BlackJack:
 
     """Constant values to be references in the functions and methods below."""
@@ -13,7 +14,6 @@ class BlackJack:
     good_number_of_cards = 5
     gameInput = ConsoleInput()
     output = ConsoleOutput()
-
     playing_card = PlayingCard()
 
     def score_hand(self, hand):
